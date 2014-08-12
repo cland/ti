@@ -86,6 +86,7 @@ grails.hibernate.cache.queries = false
 environments {
     development {
         grails.logging.jul.usebridge = true
+		jqueryUi.minified = false
     }
     production {
         grails.logging.jul.usebridge = false
@@ -121,9 +122,11 @@ grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.cland.User
 grails.plugin.springsecurity.authority.className = 'com.cland.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                              ['permitAll'],
+	'/person/**':                         ['permitAll'],
 	'/about':                         ['permitAll'],
 	'/blog':                          ['permitAll'],
 	'/contact':                       ['permitAll'],
+	'/terms':                       ['permitAll'],
 	'/siteinfo/**':                   ['permitAll'],
 	'/home/**':                      ['permitAll'],
 	'/index':                         ['permitAll'],
