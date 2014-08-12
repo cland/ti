@@ -3,14 +3,14 @@ package com.cland
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
-
+import grails.converters.JSON
 /**
  * PersonController
  * A controller class handles incoming web requests and performs actions such as redirects, rendering views and so on.
  */
 @Transactional(readOnly = true)
 class PersonController {
-
+	def autoCompleteService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
 	def index(Integer max) {
@@ -113,4 +113,18 @@ class PersonController {
             '*'{ render status: NOT_FOUND }
         }
     }
+	
+	def personlist = {
+		render autoCompleteService.complist(params) as JSON
+	}
+	def getAllPeople(){
+		def data = Person.list()
+		def response = []
+ 
+		data.each{
+			response << "${it.toMap()}"
+		}
+ 
+		render data as JSON
+	}
 }

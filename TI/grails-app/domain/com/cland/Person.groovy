@@ -12,4 +12,8 @@ class Person {
 		email nullable:true
 		gender nullable:true
     }
+	
+	def toMap(){
+		return [id:id,firstname:firstName, lastname:lastName,gender:gender,birthdate:dateOfBirth?.format("dd MMM yyyy"),email:email]
+	}
 }

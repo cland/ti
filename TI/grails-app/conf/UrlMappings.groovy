@@ -12,6 +12,7 @@ class UrlMappings {
 		"/contact"		(view:"/siteinfo/contact")
 		"/terms"		(view:"/siteinfo/terms")
 		"/imprint"		(view:"/siteinfo/imprint")
+		"/test"		(view:"/siteinfo/test")
 		"/nextSteps"	(view:"/home/nextSteps")
 
 		/*

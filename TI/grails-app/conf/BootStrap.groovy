@@ -21,6 +21,13 @@ class BootStrap {
 		
 		new Person(firstName:"Kerry",lastName:"Hoyer-Weaver",gender:"Male",email:"jay@mail.com").save()
 		new Person(firstName:"Allan",lastName:"Greathead",gender:"Male",email:"jay@mail.com").save()
+		new Person(firstName:"Ablan",lastName:"Greathand",gender:"Male",email:"jay@mail.com").save()
+		new Person(firstName:"Aclan",lastName:"Greatfinger",gender:"Male",email:"jay@mail.com").save()
+		new Person(firstName:"Aclan",lastName:"Greatjob",gender:"Male",email:"jay@mail.com").save()
+		new Person(firstName:"Aglan",lastName:"Greattut",gender:"Male",email:"jay@mail.com").save()
+		new Person(firstName:"Aglan",lastName:"Greatstuff",gender:"Male",email:"jay@mail.com").save()
+		new Person(firstName:"Ablan",lastName:"Greatpoint",gender:"Male",email:"jay@mail.com").save()
+		new Person(firstName:"Allannne",lastName:"Greathead",gender:"Male",email:"jay@mail.com").save()
 		new Person(firstName:"Anna",lastName:"Thomas",gender:"Male",email:"jay@mail.com").save()
 		new Person(firstName:"James",lastName:"Columbus",gender:"Male",email:"jay@mail.com").save()
 		new Person(firstName:"Joe",lastName:"Charles",gender:"Male",email:"jay@mail.com").save()
