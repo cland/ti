@@ -10,7 +10,7 @@ class BootStrap {
 		
 		Organisation org = new Organisation(name:"My Org",status:"active",phoneNo:"0315465",email:"org@mail.com").save(flush:true)
 		
-		Office office = new Office(name:"",code:"OO",status:"active",contactNumber:"021545645",email:"office@mail.com")
+		Office office = new Office(name:"Office one",code:"OO",status:"active",contactNumber:"021545645",email:"office@mail.com")
 		println(office)
 		office.addToStaff(p)		
 		office.addToAffiliates(org)
