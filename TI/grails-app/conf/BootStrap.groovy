@@ -6,14 +6,14 @@ class BootStrap {
 		def userRole = new Role(authority: 'ROLE_USER').save(flush: true)		
 		Person p = new Person(firstName:"Jay",lastName:"Bond",gender:"Male",email:"jay@mail.com")
 		p.save(flush:true)
-		if(p.hasErrors()) println(p.errors)
+		if(p.hasErrors()) println(p.errors)				
 		
-		Office office = new Office(name:"",code:"OO",status:"active",contactNumber:"021545645",email:"office@mail.com").save()
-		Organisation org = new Organisation(name:"",status:"active",phoneNo:"0315465",email:"org@mail.com").save(flush:true)
+		Organisation org = new Organisation(name:"My Org",status:"active",phoneNo:"0315465",email:"org@mail.com").save(flush:true)
 		
+		Office office = new Office(name:"",code:"OO",status:"active",contactNumber:"021545645",email:"office@mail.com")
 		println(office)
-		office.addStaff(p)
-		office.addAffiliates(org)
+		office.addToStaff(p)		
+		office.addToAffiliates(org)
 		office.save(flush:true)
 		if(office.hasErrors()) println(office.errors)
 		
