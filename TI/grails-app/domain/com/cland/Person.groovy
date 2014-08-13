@@ -14,10 +14,10 @@ class Person {
     }
 	boolean isStaff(){
 		//work out if this person has a user account
-		return false
+		return (getUser() != null?true:false)
 	}
 	User getUser(){
-		return null
+		return User.findByPerson(this)
 	}
 	
 	Office primaryOffice(){

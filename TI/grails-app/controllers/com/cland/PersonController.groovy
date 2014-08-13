@@ -115,7 +115,15 @@ class PersonController {
     }
 	
 	def personlist = {
-		render autoCompleteService.complist(params) as JSON
+		Person person = Person.get(1)
+		if(person){
+			println("isStaff >>  " + person.isStaff())
+			if(person.isStaff()){
+				User user = person.getUser();
+				if(user) println("Staff >>  " + user)
+			}
+		}
+		render autoCompleteService.personList(params) as JSON
 	}
 	def getAllPeople(){
 		def data = Person.list()
