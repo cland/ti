@@ -9,6 +9,15 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script>
 $(function() {
+	function log( message ) {
+
+	      $( "<div>" ).text( message ).prependTo( "#log" );
+
+	      $( "#log" ).scrollTop( 0 );
+
+	    }
+
+		
 		var availableTags = [
 		"ActionScript",
 		"AppleScript",
@@ -53,6 +62,7 @@ $(function() {
 			select : function(event, ui) { // event handler when user selects a company from the list.
 				$("#person_id").val(ui.item.id); // update the hidden field.
 				$("#gender").val(ui.item.gender) // populate the employee field with the nasdaq symbol.
+				 log( ui.item ? "Selected: " + ui.item.label + " aka " + ui.item.id : "Nothing selected, input was " + this.value );
 			}
 		});
 });
@@ -67,17 +77,22 @@ $(function() {
 
   </style>
 
-  <script>
 
 
 </head>
 <body>
-<div class="ui-widget">
-<label for="tags">Tags: </label>
-<input id="tags">
+	<div class="ui-widget">
+		<label for="tags">Tags: </label>
+		<input id="tags">
+		
+		<BR/>
+		Gender: <input name="gender" type="text" value="" id="gender"/>
+	</div>
+	<div class="ui-widget" style="margin-top:2em; font-family:Arial">
+  		Result:
+  		<div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+	</div>
 
-<BR/>
-Gender: <input name="gender" type="text" value="" id="gender"/>
-</div>
+	
 </body>
 </html>

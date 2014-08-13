@@ -39,4 +39,11 @@ class User {
 	protected void encodePassword() {
 		password = springSecurityService.encodePassword(password)
 	}
+	def toAutoCompleteMap(){
+		return [id:id,
+			label:person?.firstName + " " + person?.lastName + "(" + username + ") | " + person?.gender + " | " + person?.dateOfBirth?.format("dd MMM yyyy"),
+			value:id,
+			gender:person?.gender,
+			email:person?.email]
+	}
 }

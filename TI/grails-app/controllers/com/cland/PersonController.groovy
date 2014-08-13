@@ -122,7 +122,7 @@ class PersonController {
 		def response = []
  
 		data.each{
-			response << "${it.toMap()}"
+			response << "${it.toAutoCompleteMap()}"
 		}
  
 		render data as JSON
