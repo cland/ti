@@ -8,9 +8,10 @@ class BootStrap {
 		p.save(flush:true)
 		if(p.hasErrors()) println(p.errors)
 		
-		def office = new Office(name:"",code:"OO",status:"active",contactNumber:"021545645",email:"office@mail.com").save(flush:true)
-		def org = new Organisation(name:"",status:"active",phoneNo:"0315465",email:"org@mail.com").save(flush:true)
+		Office office = new Office(name:"",code:"OO",status:"active",contactNumber:"021545645",email:"office@mail.com").save()
+		Organisation org = new Organisation(name:"",status:"active",phoneNo:"0315465",email:"org@mail.com").save(flush:true)
 		
+		println(office)
 		office.addStaff(p)
 		office.addAffiliates(org)
 		office.save(flush:true)
