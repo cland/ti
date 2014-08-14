@@ -1,7 +1,5 @@
 <%@ page import="com.cland.Person" %>
-
-
-
+<br/>
 			<div class="${hasErrors(bean: personInstance, field: 'dateOfBirth', 'error')} ">
 				<label for="dateOfBirth" class="control-label"><g:message code="person.dateOfBirth.label" default="Date Of Birth" /></label>
 				<div>
@@ -41,4 +39,22 @@
 					<span class="help-inline">${hasErrors(bean: personInstance, field: 'lastName', 'error')}</span>
 				</div>
 			</div>
+
+			
+			<table>
+				<tr class="prop">
+			      <td valign="top" class="name">
+			        <label for="phones"><g:message code="person.phones.label" default="Phones List" /></label>
+			      </td>
+			        <td valign="top" class="value ${hasErrors(bean: personInstance, field: 'phones', 'errors')}">
+			
+			        <!-- Render the phones template (_phones.gsp) here -->
+			        <g:render template="phones" model="['personInstance':personInstance]" />
+			        <!-- Render the phones template (_phones.gsp) here -->
+			
+			    </td>
+			    </tr>
+			    </tbody>
+			  </table>				  				
+			
 
