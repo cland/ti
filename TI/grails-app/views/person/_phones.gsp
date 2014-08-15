@@ -33,15 +33,14 @@
       childCount++;
     }
 
-    //bind click event on delete buttons using jquery live
-    $('.del-phone').live('click', function() {
-        //find the parent div
+    $(document).on("click",".del-phone",function(){
+    	//find the parent div
         var prnt = $(this).parents(".phone-div");
         //find the deleted hidden input
         var delInput = prnt.find("input[id$=deleted]");
         //check if this is still not persisted
         var newValue = prnt.find("input[id$=new]").attr('value');
-        //if it is new then i can safely remove from dom
+        //if it is new then i can safely remove from dom        
         if(newValue == 'true'){
             prnt.remove();
         }else{
@@ -50,7 +49,27 @@
             //hide the div
             prnt.hide();
         }
-    });
+      });
+    //bind click event on delete buttons using jquery live
+<%--    $('.del-phone11').live('click', function() {--%>
+<%--        --%>
+<%--        //find the parent div--%>
+<%--        var prnt = $(this).parents(".phone-div");--%>
+<%--        //find the deleted hidden input--%>
+<%--        var delInput = prnt.find("input[id$=deleted]");--%>
+<%--        //check if this is still not persisted--%>
+<%--        var newValue = prnt.find("input[id$=new]").attr('value');--%>
+<%--        //if it is new then i can safely remove from dom--%>
+<%--        alert(newValue)--%>
+<%--        if(newValue == 'true'){--%>
+<%--            prnt.remove();--%>
+<%--        }else{--%>
+<%--            //set the deletedFlag to true--%>
+<%--            delInput.attr('value','true');--%>
+<%--            //hide the div--%>
+<%--            prnt.hide();--%>
+<%--        }--%>
+<%--    });--%>
 
 </script>
 
