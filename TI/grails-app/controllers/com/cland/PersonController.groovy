@@ -39,7 +39,7 @@ class PersonController {
 
     @Transactional
     def save(Person personInstance) {
-		println(params)
+
         if (personInstance == null) {
             notFound()
             return
@@ -50,7 +50,22 @@ class PersonController {
             return
         }
 		
-		
+		//personInstance.phones.clear()
+		int index = 0
+		int cnt = 0
+		def pEntry = params.get('phones[' + index + ']')
+		while(pEntry != null){
+			println(pEntry)
+			Phone p = new Phone(pEntry)
+			if(pEntry?.deleted=='false'){
+				p?.index = cnt
+				personInstance?.addToPhones(p)
+				cnt++
+			}
+			//next p
+			index++
+			pEntry = params.get('phones[' + index + ']')
+		}
 //		def _toBeRemoved = personInstance.phones.findAll {!it}
 //		
 //		// if there are phones to be removed
@@ -75,12 +90,12 @@ class PersonController {
     }
 
     def edit(Person personInstance) {
-		println ("Phone size: " + personInstance?.phones?.size() + " - " + personInstance?.phones)
         respond personInstance
     }
 
     @Transactional
     def update(Person personInstance) {	
+		
 		personInstance.phones.clear()		
 		int index = 0
 		int cnt = 0
@@ -95,8 +110,7 @@ class PersonController {
 			}
 			//next p
 			index++
-			pEntry = params.get('phones[' + index + ']')
-			
+			pEntry = params.get('phones[' + index + ']')			
 		}
 		
         if (personInstance == null) {
