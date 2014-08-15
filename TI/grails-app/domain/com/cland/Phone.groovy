@@ -23,7 +23,7 @@ class Phone {
 	PhoneType type
 	boolean deleted
 	static transients = [ 'deleted' ]
-	static belongsTo = [ contact:Person]
+	static belongsTo = [ person:Person]
 	
 	static constraints = {
         index(blank:false, min:0)

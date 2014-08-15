@@ -12,6 +12,10 @@
       clone.find("input[id$=deleted]")
               .attr('id',htmlId + 'deleted')
               .attr('name',htmlId + 'deleted');
+      clone.find("input[id$=index]")
+		      .attr('id',htmlId + 'index')
+		      .attr('value', childCount)
+		      .attr('name',htmlId + 'index');      		  
       clone.find("input[id$=new]")
               .attr('id',htmlId + 'new')
               .attr('name',htmlId + 'new')

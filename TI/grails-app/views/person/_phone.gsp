@@ -1,6 +1,7 @@
 <div id="phone${i}" class="phone-div" <g:if test="${hidden}">style="display:none;"</g:if>>
     <g:hiddenField name='phones[${i}].id' value='${phone?.id}'/>
     <g:hiddenField name='phones[${i}].deleted' value='false'/>
+    <g:hiddenField name='phones[${i}].index' value='${phone?.index == null?i:phone?.index}'/>
 	<g:hiddenField name='phones[${i}].new' value="${phone?.id == null?'true':'false'}"/>
     
     <g:textField name='phones[${i}].number' value='${phone?.number}' />    

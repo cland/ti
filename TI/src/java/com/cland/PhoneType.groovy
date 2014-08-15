@@ -17,6 +17,6 @@ public enum PhoneType{
 		name()
 	}
 	static list() {
-		[H.toString(), M.toString(), W.toString(), F.toString(),O.toString()]
+		[H, M, W, F,O]
 	}
 }

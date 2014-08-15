@@ -18,12 +18,14 @@ class PersonController {
 
 	def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
+		params.sort = 'firstName'
         respond Person.list(params), model:[personInstanceCount: Person.count()]
     }
 
-	def list(Integer max) {
+	def list(Integer max) {		
         params.max = Math.min(max ?: 10, 100)
-        respond Person.list(params), model:[personInstanceCount: Person.count()]
+		params.sort = 'firstName'
+       respond Person.list(params), model:[personInstanceCount: Person.count()]
     }
 
     def show(Person personInstance) {
@@ -47,21 +49,19 @@ class PersonController {
             respond personInstance.errors, view:'create'
             return
         }
-		println("1. Fixing date...")
-		bindData(personInstance, params, [exclude: 'dateOfBirth'])
-		bindData(personInstance, ['dateOfBirth': params.date('dateOfBirth', ['yyyy-MM-dd'])], [include: 'dateOfBirth'])
 		
-		def _toBeRemoved = personInstance.phones.findAll {!it}
 		
-		// if there are phones to be removed
-		if (_toBeRemoved) {
-			personInstance.phones.removeAll(_toBeRemoved)
-		 }
-		
-		//update my indexes
-		personInstance.phones.eachWithIndex(){phn, i ->
-			if(phn)	phn.index = i
-		}
+//		def _toBeRemoved = personInstance.phones.findAll {!it}
+//		
+//		// if there are phones to be removed
+//		if (_toBeRemoved) {
+//			personInstance.phones.removeAll(_toBeRemoved)
+//		 }
+//		
+//		//update my indexes
+//		personInstance.phones.eachWithIndex(){phn, i ->
+//			if(phn)	phn.index = i
+//		}
 		
         personInstance.save flush:true
 
@@ -75,18 +75,48 @@ class PersonController {
     }
 
     def edit(Person personInstance) {
-		println ("Phone size: " + personInstance?.phones?.size())
+		println ("Phone size: " + personInstance?.phones?.size() + " - " + personInstance?.phones)
         respond personInstance
     }
 
     @Transactional
     def update(Person personInstance) {
-		//println(params)		
-		int someInt = 0
-		println(params.get('phones[' + someInt + ']'))
+		println(params)
+		for(itm in params.list("phones")){
+			println itm
+		}
+				
+//		Person newPerson = new Person(params)
+//		newPerson.firstName="AAChanged1"
+//		newPerson.lastName="AAGainyMe1"
+//		newPerson.save(flush:true)
+//		if(newPerson.hasErrors()){
+//			println(newPerson.errors)
+//		}else{
+//			println("New person: " + newPerson?.phones + " - " + newPerson.phones?.size())
+//		}
 		
-		Phone p = new Phone(params.get('phones[' + someInt + ']'))
-		println("p: " + p + " - " + p?.deleted)
+		
+		personInstance.phones.clear()		
+		int index = 0				
+		def pEntry = params.get('phones[' + index + ']')
+		while(pEntry != null){
+			Phone p = new Phone(pEntry)
+			p?.index = index
+			personInstance?.addToPhones(p)
+			//next p
+			index++
+			pEntry = params.get('phones[' + index + ']')
+			
+		}
+		
+//		p.save(flush:true)
+//		if(p.hasErrors()){
+//			println(p.errors)
+//		}else{
+//			println(">>> p[" + p?.id + "]: " + p + " - " + p?.deleted)
+//		}
+		
         if (personInstance == null) {
             notFound()
             return
@@ -96,11 +126,16 @@ class PersonController {
             respond personInstance.errors, view:'edit'
             return
         }
-		//personInstance.properties = params
+		
+	//	personInstance.properties = params
+		
+//		personInstance.phones.clear()
+//		personInstance?.addToPhones(p)
+		println ("B4 save: " + personInstance?.phones)
 //		def tmp =params.get('phones[' + someInt + ']')
 //		
-		personInstance.phones.clear()
-		personInstance.addToPhones(p)
+//		personInstance.phones.clear()
+//		personInstance.addToPhones(p)
 //		println(">> added: " + tmp)
 		
 		// find the phones that are marked for deletion
@@ -116,21 +151,23 @@ class PersonController {
 //		}
 //		//personInstance.phones.removeAll(it?.deleted)
 //		
-//		//update my indexes
+		//update my indexes
 //		personInstance.phones.eachWithIndex(){phn, i ->
-//			println("updateing index...")
-//			phn.index = i
+//			println("updating index..." + phn)
+//			phn?.index = i
 //		}
 		
-		bindData(personInstance, params, [exclude: 'dateOfBirth'])
-		bindData(personInstance, ['dateOfBirth': params.date('dateOfBirth', ['yyyy-MM-dd'])], [include: 'dateOfBirth'])
+//		bindData(personInstance, params, [exclude: 'dateOfBirth'])
+//		bindData(personInstance, ['dateOfBirth': params.date('dateOfBirth', ['yyyy-MM-dd'])], [include: 'dateOfBirth'])
 		
 		
 		
         personInstance.save flush:true
-		
-		println ("Final: " + personInstance?.phones)
-
+		if(personInstance.hasErrors()){
+			personInstance.errors
+		}else{		
+			println ("Final: " + personInstance?.phones)
+		}
         request.withFormat {
             form {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Person.label', default: 'Person'), personInstance.id])
